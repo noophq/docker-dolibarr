@@ -69,7 +69,7 @@ set_config() {
 set_config '$dolibarr_main_db_type' "mysqli"
 set_config '$dolibarr_main_document_root' "/var/www/html"
 set_config '$dolibarr_main_data_root' "/var/www/html/documents"
-set_config '$dolibarr_main_url_root' "$DOLIBARR_DB_URL"
+set_config '$dolibarr_main_url_root' "$DOLIBARR_URL"
 set_config '$dolibarr_main_db_host' "$DOLIBARR_DB_HOST"
 set_config '$dolibarr_main_db_port' "$DOLIBARR_DB_PORT"
 set_config '$dolibarr_main_db_name' "$DOLIBARR_DB_NAME"
