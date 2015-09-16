@@ -1,2 +1,3 @@
-# docker-library
-Docker image packaging for public projects
+# docker-dolibarr
+Docker image packaging for dolibarr ERP/CRM
+www.dolibarr.org
