@@ -66,6 +66,10 @@ set_config() {
 	sed -ri "s/($regex\s*)(['\"]).*\3/\1$(sed_escape_rhs "$(php_escape "$value")")/" ./conf/conf.php
 }
 
+# Create php.ini to define timezone and avoid php warnings
+: ${DOLIBARR_TIMEZONE:="Europe/Paris"}
+echo "date.timezone = \"$DOLIBARR_TIMEZONE\"" > /usr/local/etc/php/php.ini
+
 # Update dolibarr conf
 : ${DOLIBARR_PROXY:="false"}
 
