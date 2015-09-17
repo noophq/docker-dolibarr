@@ -66,6 +66,16 @@ set_config() {
 	sed -ri "s/($regex\s*)(['\"]).*\3/\1$(sed_escape_rhs "$(php_escape "$value")")/" ./conf/conf.php
 }
 
+# Update dolibarr conf
+: ${DOLIBARR_PROXY:="false"}
+
+# If you are behind a proxy set $dolibarr_nocsrfcheck to 1
+if [ "$DOLIBARR_PROXY" == "true" ]; then
+		set_config '$dolibarr_nocsrfcheck' "1"
+	else
+        set_config '$dolibarr_nocsrfcheck' "0"
+fi
+
 set_config '$dolibarr_main_db_type' "mysqli"
 set_config '$dolibarr_main_document_root' "/var/www/html"
 set_config '$dolibarr_main_data_root' "/var/www/html/documents"
