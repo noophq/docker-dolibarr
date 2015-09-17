@@ -35,7 +35,7 @@ if [ -z "$DOLIBARR_DB_PASSWORD" ]; then
 	exit 1
 fi
 
-if ! [ -e index.php ]; then
+if ! [ -e index.php -a -e ./conf/conf.php ]; then
 	echo >&2 "Dolibarr not found in $(pwd) - copying now..."
 	if [ "$(ls -A)" ]; then
 		echo >&2 "WARNING: $(pwd) is not empty - press Ctrl+C now if this is an error!"
