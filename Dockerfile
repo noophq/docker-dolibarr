@@ -10,8 +10,8 @@ RUN docker-php-ext-install mysqli
 
 VOLUME /var/www/html
 
-ENV DOLIBARR_VERSION 3.8.0
-ENV DOLIBARR_SHA1 12d17f80b3cb6bbaa280c895e25bb1f3ad2eaf64
+ENV DOLIBARR_VERSION 4.0.2
+ENV DOLIBARR_SHA1 4dbb01385399b6b9e4b66e9ee4d6efc6f5374996
 
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN curl -o dolibarr.tar.gz -SL https://github.com/Dolibarr/dolibarr/archive/${DOLIBARR_VERSION}.tar.gz \
