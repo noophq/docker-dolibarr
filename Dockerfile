@@ -1,17 +1,24 @@
-FROM php:5.6-apache
+FROM php:7.3-apache
 
 RUN a2enmod rewrite
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng12-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
+ENV HOST_USER_ID 33
+ENV PHP_INI_DATE_TIMEZONE 'UTC'
+
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libldap2-dev \
+	&& rm -rf /var/lib/apt/lists/* \
 	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd
-RUN docker-php-ext-install mysqli
+	&& docker-php-ext-install gd \
+	&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
+        && docker-php-ext-install ldap \
+        && docker-php-ext-install mysqli \
+        && apt-get purge -y libpng-dev libjpeg-dev libldap2-dev
 
 VOLUME /var/www/html
 
-ENV DOLIBARR_VERSION 4.0.2
-ENV DOLIBARR_SHA1 4dbb01385399b6b9e4b66e9ee4d6efc6f5374996
+ENV DOLIBARR_VERSION 9.0.3
+ENV DOLIBARR_SHA1 05955949b893c5346477de7f2f4fff2427ea6e2c
 
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN curl -o dolibarr.tar.gz -SL https://github.com/Dolibarr/dolibarr/archive/${DOLIBARR_VERSION}.tar.gz \
