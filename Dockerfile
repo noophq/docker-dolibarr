@@ -1,4 +1,4 @@
-FROM php:7.3-apache
+FROM php:7.4-apache
 
 RUN a2enmod rewrite
 
@@ -6,9 +6,9 @@ RUN a2enmod rewrite
 ENV HOST_USER_ID 33
 ENV PHP_INI_DATE_TIMEZONE 'UTC'
 
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libldap2-dev \
+RUN apt-get update && apt-get install -y libpng-dev libfreetype6-dev libjpeg-dev libldap2-dev \
 	&& rm -rf /var/lib/apt/lists/* \
-	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
+	&& docker-php-ext-configure gd --with-freetype --with-jpeg  \
 	&& docker-php-ext-install gd \
 	&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
         && docker-php-ext-install ldap \
@@ -17,8 +17,8 @@ RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev libldap2-dev \
 
 VOLUME /var/www/html
 
-ENV DOLIBARR_VERSION 9.0.3
-ENV DOLIBARR_SHA1 05955949b893c5346477de7f2f4fff2427ea6e2c
+ENV DOLIBARR_VERSION 13.0.2
+ENV DOLIBARR_SHA1 eb2a602638b9319edb545665a5cca899461b0922
 
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN curl -o dolibarr.tar.gz -SL https://github.com/Dolibarr/dolibarr/archive/${DOLIBARR_VERSION}.tar.gz \
