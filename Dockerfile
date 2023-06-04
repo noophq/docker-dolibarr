@@ -7,18 +7,18 @@ ENV HOST_USER_ID 33
 ENV PHP_INI_DATE_TIMEZONE 'UTC'
 
 RUN apt-get update && apt-get install -y libpng-dev libfreetype6-dev libjpeg-dev libldap2-dev \
-	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/lib/apt/lists/* \ 
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg  \
 	&& docker-php-ext-install gd \
 	&& docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ \
-        && docker-php-ext-install ldap \
-        && docker-php-ext-install mysqli \
-        && apt-get purge -y libpng-dev libjpeg-dev libldap2-dev
+	&& docker-php-ext-install ldap \
+	&& docker-php-ext-install mysqli \
+	&& apt-get purge -y libpng-dev libjpeg-dev libldap2-dev
 
 VOLUME /var/www/html
 
-ENV DOLIBARR_VERSION 13.0.2
-ENV DOLIBARR_SHA1 eb2a602638b9319edb545665a5cca899461b0922
+ENV DOLIBARR_VERSION 17.0.1
+ENV DOLIBARR_SHA1 9ec5bd6fc7d9f41549834a9e21aca93b86a208f5
 
 # upstream tarballs include ./wordpress/ so this gives us /usr/src/wordpress
 RUN curl -o dolibarr.tar.gz -SL https://github.com/Dolibarr/dolibarr/archive/${DOLIBARR_VERSION}.tar.gz \
